@@ -12,8 +12,8 @@ public class DrivingSchool {
     private int icon;
     private String adresse;
 
-    public DrivingSchool(String adress, int icon, String name) {
-        this.adresse = adress;
+    public DrivingSchool(String adresse, int icon, String name) {
+        this.adresse = adresse;
         this.icon = icon;
         this.name = name;
     }

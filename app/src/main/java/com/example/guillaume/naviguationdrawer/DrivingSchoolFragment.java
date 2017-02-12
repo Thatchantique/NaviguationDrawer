@@ -45,7 +45,8 @@ public class DrivingSchoolFragment extends Fragment {
         DrivingSchool auto1 = new DrivingSchool("44 av Henry Chéron 14000 Caen",adresse_icon2,"Ecole2");
         DrivingSchool auto2 = new DrivingSchool("44 av Henry Chéron 14000 Caen",adresse_icon3,"Ecole3");
         data.add(auto);
+        data.add(auto1);
+        data.add(auto2);
         return data;
     }
-
 }

@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG_SETTINGS = "settings";
     public static String CURRENT_TAG = TAG_HOME;
     public static final String TAG_DRIVEN = "driven";
+    public static final String TAG_RESULT = "result";
+    public static final String TAG_SEND = "send";
+    public static final String TAG_SHARE = "share";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,12 +120,28 @@ public class MainActivity extends AppCompatActivity
 
         switch (id)
         {
+            case R.id.nav_home :
+                CURRENT_TAG = TAG_HOME;
+                currentFragment = getCurrentFragment();
+                break;
             case R.id.nav_driving :
                 CURRENT_TAG = TAG_DRIVEN;
                 currentFragment = getCurrentFragment();
                 break;
-            case R.id.nav_home :
-                CURRENT_TAG = TAG_HOME;
+            case R.id.nav_result :
+                CURRENT_TAG = TAG_RESULT;
+                currentFragment = getCurrentFragment();
+                break;
+            case R.id.nav_manage :
+                CURRENT_TAG = TAG_SETTINGS;
+                currentFragment = getCurrentFragment();
+                break;
+            case R.id.nav_send :
+                CURRENT_TAG = TAG_SEND;
+                currentFragment = getCurrentFragment();
+                break;
+            case R.id.nav_share :
+                CURRENT_TAG = TAG_SHARE;
                 currentFragment = getCurrentFragment();
                 break;
         }
