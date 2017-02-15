@@ -37,7 +37,7 @@ public class DrivingSchoolDatabase extends SQLiteOpenHelper {
     private static final String KEY_SCHOOL_ID = "id";
     private static final String KEY_SCHOOL_ADDRESS = "address";
     private static final String KEY_SCHOOL_NAME = "name";
-    //private static final String KEY_SCHOOL_PICT = "name";
+    private static final String KEY_SCHOOL_PICT = "icon";
 
     //List Table Columns
     // private static final String KEY_LIST_ID ="id";
@@ -57,7 +57,7 @@ public class DrivingSchoolDatabase extends SQLiteOpenHelper {
 
 
     public static synchronized DrivingSchoolDatabase getInstance(Context context) {
-        if (instance != null) {
+        if (instance == null) {
             instance = new DrivingSchoolDatabase(context.getApplicationContext());
         }
         return instance;
@@ -80,13 +80,13 @@ public class DrivingSchoolDatabase extends SQLiteOpenHelper {
                 KEY_CARS_MODEL + " TEXT," +
                 KEY_CARS_MARK + " TEXT)";
 
-        String DATABASE_CREATE_SCHOOL = "CREATE TABLE " + TABLE_DRIVING_SCHOOL +
+        /*String DATABASE_CREATE_SCHOOL = "CREATE TABLE " + TABLE_DRIVING_SCHOOL +
                 "(" +
                 KEY_SCHOOL_ID + " INT PRIMARY KEY NOT NULL," + // Define a primary key
                 KEY_SCHOOL_NAME + " TEXT NOT NULL," +
                 KEY_SCHOOL_ADDRESS + " TEXT)";
-
-        String DATABASE_CREATE_COURSE = "CREATE TABLE " + TABLE_COURSE +
+        */
+        /*String DATABASE_CREATE_COURSE = "CREATE TABLE " + TABLE_COURSE +
                 "(" +
                 KEY_COURSE_ID + "INT NOT NULL" +
                 KEY_COURSE_ID_CARS_FK + " INT NOT NULL REFERENCES " + TABLE_CARS + "," +
@@ -94,11 +94,11 @@ public class DrivingSchoolDatabase extends SQLiteOpenHelper {
                 KEY_COURSE_KM + " INT NOT NULL" + "," +
                 "PRIMARY KEY (" + KEY_COURSE_ID + "," + KEY_COURSE_ID_CARS_FK + "," + KEY_COURSE_ID_SCHOOL_FK +
                 "))";
-
+        */
         try {
             db.execSQL(DATABASE_CREATE_CARS);
-            db.execSQL(DATABASE_CREATE_SCHOOL);
-            db.execSQL(DATABASE_CREATE_COURSE);
+            // db.execSQL(DATABASE_CREATE_SCHOOL);
+            // db.execSQL(DATABASE_CREATE_COURSE);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package com.example.guillaume.naviguationdrawer;
+package com.example.guillaume.naviguationdrawer.Fragment;
 
 import android.support.v4.app.Fragment;
 

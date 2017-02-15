@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.example.guillaume.naviguationdrawer.Fragment.HomeFragment;
+import com.example.guillaume.naviguationdrawer.Fragment.DrivingSchoolFragment;
+
+import java.util.List;
+// import com.example.guillaume.naviguationdrawer.Fragment.ResultFragment;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,6 +61,19 @@ public class MainActivity extends AppCompatActivity
         if(savedInstanceState == null) {
             loadCurrentFragment(getCurrentFragment());
         }
+
+        CarsDatabase carsData = new CarsDatabase(getApplicationContext());
+
+        carsData.open();
+        carsData.insert(new Cars("Opel", "Modele", 7));
+        carsData.insert(new Cars("ScoobyMachine", "Samy", 8));
+        carsData.insert(new Cars("Porsche", "Carrera", 9));
+
+        List<Cars> list_cars = carsData.selectAll();
+        carsData.close();
+        for (Cars list_car : list_cars) {
+            Log.e("MainActivity", list_car.toString());
+        }
     }
 
     private Fragment getCurrentFragment()
@@ -66,15 +86,6 @@ public class MainActivity extends AppCompatActivity
                 break;
             case TAG_DRIVEN :
                 currentFragment = new DrivingSchoolFragment();
-                break;
-            case TAG_SEND :
-                currentFragment = new SendFragment();
-                break;
-            case TAG_RESULT :
-                currentFragment = new ShareFragment();
-                break;
-            case TAG_SHARE :
-                currentFragment = new ShareFragment();
                 break;
             case TAG_SETTINGS :
                 currentFragment = new HomeFragment();
@@ -146,14 +157,6 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.nav_manage :
                 CURRENT_TAG = TAG_SETTINGS;
-                currentFragment = getCurrentFragment();
-                break;
-            case R.id.nav_send :
-                CURRENT_TAG = TAG_SEND;
-                currentFragment = getCurrentFragment();
-                break;
-            case R.id.nav_share :
-                CURRENT_TAG = TAG_SHARE;
                 currentFragment = getCurrentFragment();
                 break;
         }

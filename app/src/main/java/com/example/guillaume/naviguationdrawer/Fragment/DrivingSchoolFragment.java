@@ -1,4 +1,4 @@
-package com.example.guillaume.naviguationdrawer;
+package com.example.guillaume.naviguationdrawer.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.guillaume.naviguationdrawer.DrivingSchool;
+import com.example.guillaume.naviguationdrawer.DrivingSchoolAdapter;
+import com.example.guillaume.naviguationdrawer.R;
 
 import java.util.ArrayList;
 import java.util.List;
