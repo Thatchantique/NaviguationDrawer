@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by Guillaume on 15/02/2017.
@@ -14,9 +13,9 @@ import java.util.List;
 
 public class CarsDatabase {
 
-    public String KEY_CARS_MODEL;
-    public String KEY_CARS_MARK;
-    public String KEY_CARS_REGISTRATION;
+    public String KEY_CARS_MODEL = "model";
+    public String KEY_CARS_MARK = "mark";
+    public String KEY_CARS_REGISTRATION = "registration";
 
     private DrivingSchoolDatabase dbDrivingSchool;
 
@@ -67,8 +66,8 @@ public class CarsDatabase {
         if(cursor.getCount() != 0)
         {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
-                Cars cars_index = cursorToCars(cursor);
-                cursor.moveToNext();
+                Cars current_cars = cursorToCars(cursor);
+                cars.add(current_cars);
             }
         }
         cursor.close();

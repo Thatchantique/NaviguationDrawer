@@ -7,14 +7,12 @@
             android:title="Home" />
         <item
             android:id="@+id/nav_driving"
-            android:icon="@mipmap/ic_drive"
             android:title="Driving" />
         <item
             android:id="@+id/nav_result"
             android:title="Result" />
         <item
             android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
             android:title="Tools" />
     </group>
 
