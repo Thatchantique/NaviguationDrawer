@@ -67,6 +67,18 @@ public class MainActivity extends AppCompatActivity
             case TAG_DRIVEN :
                 currentFragment = new DrivingSchoolFragment();
                 break;
+            case TAG_SEND :
+                currentFragment = new SendFragment();
+                break;
+            case TAG_RESULT :
+                currentFragment = new ShareFragment();
+                break;
+            case TAG_SHARE :
+                currentFragment = new ShareFragment();
+                break;
+            case TAG_SETTINGS :
+                currentFragment = new HomeFragment();
+                break;
         }
         return currentFragment;
     }
