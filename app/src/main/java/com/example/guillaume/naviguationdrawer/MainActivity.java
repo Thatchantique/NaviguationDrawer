@@ -1,5 +1,7 @@
 package com.example.guillaume.naviguationdrawer;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity
     public static String CURRENT_TAG = TAG_HOME;
     public static final String TAG_DRIVEN = "driven";
     public static final String TAG_RESULT = "result";
-    public static final String TAG_SEND = "send";
     public static final String TAG_SHARE = "share";
 
     @Override
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             loadCurrentFragment(getCurrentFragment());
         }
 
@@ -76,18 +77,16 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private Fragment getCurrentFragment()
-    {
+    private Fragment getCurrentFragment() {
         Fragment currentFragment = null;
-        switch(CURRENT_TAG)
-        {
-            case TAG_HOME :
+        switch (CURRENT_TAG) {
+            case TAG_HOME:
                 currentFragment = new HomeFragment();
                 break;
-            case TAG_DRIVEN :
+            case TAG_DRIVEN:
                 currentFragment = new DrivingSchoolFragment();
                 break;
-            case TAG_SETTINGS :
+            case TAG_SETTINGS:
                 currentFragment = new HomeFragment();
                 break;
         }
@@ -141,23 +140,32 @@ public class MainActivity extends AppCompatActivity
 
         Fragment currentFragment = null;
 
-        switch (id)
-        {
-            case R.id.nav_home :
+        switch (id) {
+            case R.id.nav_home:
                 CURRENT_TAG = TAG_HOME;
                 currentFragment = getCurrentFragment();
                 break;
-            case R.id.nav_driving :
+            case R.id.nav_driving:
                 CURRENT_TAG = TAG_DRIVEN;
                 currentFragment = getCurrentFragment();
                 break;
-            case R.id.nav_result :
+            case R.id.nav_result:
                 CURRENT_TAG = TAG_RESULT;
                 currentFragment = getCurrentFragment();
                 break;
-            case R.id.nav_manage :
+            case R.id.nav_manage:
                 CURRENT_TAG = TAG_SETTINGS;
                 currentFragment = getCurrentFragment();
+                break;
+            case R.id.nav_send:
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setData(Uri.parse("mailto:"));
+                String[] to ={"21504004@etu.unicaen.fr"};
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Prise de contact");
+                emailIntent.putExtra(Intent.EXTRA_TEXT,"Ceci est le texte");
+                emailIntent.setType("message/rfc822");
+                startActivity(Intent.createChooser(emailIntent,"Envoyer à..."));
                 break;
         }
         loadCurrentFragment(currentFragment);
