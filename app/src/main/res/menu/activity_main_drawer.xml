@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"> <!-- TODO: Move to strings-->
         <item
             android:id="@+id/nav_home"
             android:title="Home" />
@@ -12,8 +12,8 @@
             android:id="@+id/nav_result"
             android:title="Result" />
         <item
-            android:id="@+id/nav_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_settings"
+            android:title="Settings" />
     </group>
 
     <item android:title="Communicate">
@@ -30,3 +30,5 @@
     </item>
 
 </menu>
+
+

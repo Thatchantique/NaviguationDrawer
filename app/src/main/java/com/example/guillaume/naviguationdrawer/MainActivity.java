@@ -1,10 +1,16 @@
 package com.example.guillaume.naviguationdrawer;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -17,10 +23,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
 import com.example.guillaume.naviguationdrawer.Fragment.HomeFragment;
 import com.example.guillaume.naviguationdrawer.Fragment.DrivingSchoolFragment;
+import com.example.guillaume.naviguationdrawer.Fragment.SettingFragment;
 
+import java.net.URI;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 // import com.example.guillaume.naviguationdrawer.Fragment.ResultFragment;
 
 
@@ -34,8 +46,37 @@ public class MainActivity extends AppCompatActivity
     public static final String TAG_RESULT = "result";
     public static final String TAG_SHARE = "share";
 
+    private static final String PREF_FILE = "PrefFile";
+
+    private SharedPreferences sharedPreferences;
+
+    public SharedPreferences getSharedPreferences() {
+        return sharedPreferences;
+    }
+
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                Log.v("MainActivity","Permission is granted");
+                return true;
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        } else {
+            Log.v("MainActivity","Permission is granted");
+            return true;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        isStoragePermissionGranted();
+
+        TextView textViewUsername = (TextView) findViewById(R.id.user_name_hello);
+        TextView textViewEmail = (TextView) findViewById(R.id.email);
+        sharedPreferences = getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -63,6 +104,36 @@ public class MainActivity extends AppCompatActivity
             loadCurrentFragment(getCurrentFragment());
         }
 
+        //0 = Context.MODE_PRIVATE
+    }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            loadUserPreferences();
+        }
+    }
+
+
+    public void loadUserPreferences() {
+        TextView textViewUsername = (TextView) findViewById(R.id.user_name_hello);
+        TextView textViewEmail = (TextView) findViewById(R.id.email);
+        String username = sharedPreferences.getString("name", "user");
+        String mail = sharedPreferences.getString("email", "21504004");
+        CircleImageView circleImageView = (CircleImageView) findViewById(R.id.imageView);
+        String avatarPath =  sharedPreferences.getString("avatar", "");
+        //String imagePath = sharedPreferences.getString("avatar", "");
+        //circleImageView.setImageURI();
+        textViewUsername.setText(getResources().getString(R.string.user_name_hello, "username"));
+        textViewEmail.setText(mail);
+        if(avatarPath.length() > 0) {
+            circleImageView.setImageURI(Uri.parse(avatarPath));
+        }
+    }
+
+    private void loadDB() {
         CarsDatabase carsData = new CarsDatabase(getApplicationContext());
 
         carsData.open();
@@ -87,7 +158,7 @@ public class MainActivity extends AppCompatActivity
                 currentFragment = new DrivingSchoolFragment();
                 break;
             case TAG_SETTINGS:
-                currentFragment = new HomeFragment();
+                currentFragment = new SettingFragment();
                 break;
         }
         return currentFragment;
@@ -153,19 +224,21 @@ public class MainActivity extends AppCompatActivity
                 CURRENT_TAG = TAG_RESULT;
                 currentFragment = getCurrentFragment();
                 break;
-            case R.id.nav_manage:
+            case R.id.nav_settings:
                 CURRENT_TAG = TAG_SETTINGS;
                 currentFragment = getCurrentFragment();
                 break;
             case R.id.nav_send:
+                CURRENT_TAG = TAG_HOME;
+                currentFragment = getCurrentFragment();
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 emailIntent.setData(Uri.parse("mailto:"));
-                String[] to ={"21504004@etu.unicaen.fr"};
+                String[] to = {"21504004@etu.unicaen.fr"};
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT,"Prise de contact");
-                emailIntent.putExtra(Intent.EXTRA_TEXT,"Ceci est le texte");
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Prise de contact");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Ceci est le texte");
                 emailIntent.setType("message/rfc822");
-                startActivity(Intent.createChooser(emailIntent,"Envoyer à..."));
+                startActivity(Intent.createChooser(emailIntent, "Envoyer à..."));
                 break;
         }
         loadCurrentFragment(currentFragment);

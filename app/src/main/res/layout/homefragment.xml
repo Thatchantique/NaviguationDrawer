@@ -5,10 +5,10 @@
 
 
     <TextView
-        android:text="Bienvenue dans l'application 'Miles'"
+        android:text="@string/home_welcome_msg"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView2" />
+        android:id="@+id/WelcomeMsg" />
 
 </RelativeLayout>
