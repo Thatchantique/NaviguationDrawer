@@ -8,6 +8,9 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.os.Messenger;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -24,6 +27,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.guillaume.naviguationdrawer.Fragment.HomeFragment;
 import com.example.guillaume.naviguationdrawer.Fragment.DrivingSchoolFragment;
@@ -103,6 +107,15 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState == null) {
             loadCurrentFragment(getCurrentFragment());
         }
+
+        final Handler rcvMsg = new Handler()
+        {
+            @Override
+            public void handleMessage(Message msg) {
+                //Toast.makeText(MainActivity.this, (CharSequence) msg.obj,Toast.LENGTH_LxONG).show();
+            }
+        };
+
 
         //0 = Context.MODE_PRIVATE
     }
@@ -247,3 +260,5 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 }
+
+
