@@ -27,6 +27,10 @@
             android:exported="false"
             android:label="timeService" />
 
+        <service android:name=".BetterService"
+            android:exported="false"
+            />
+
     </application>
 
 </manifest>

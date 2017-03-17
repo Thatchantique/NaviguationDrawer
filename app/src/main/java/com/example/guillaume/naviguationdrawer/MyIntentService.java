@@ -1,9 +1,16 @@
 package com.example.guillaume.naviguationdrawer;
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.content.Intent;
+import android.os.Binder;
+import android.os.Bundle;
+import android.os.Message;
 import android.os.Messenger;
+import android.os.Parcelable;
 import android.util.Log;
+
+import java.nio.charset.MalformedInputException;
 
 
 /**
@@ -44,7 +51,29 @@ public class MyIntentService extends IntentService {
             }
         }while(tempsRestant != 0);
 
-        Log.v("MyIntentService","Arrive à 0");
+        Message message = Message.obtain();
+
+        Bundle bd = new Bundle();
+
+        bd.putString("Message", "Coucou je suis un msg");
+        //bd.putParcelable("key", (Parcelable) object); -> Si object perso !
+
+        message.setData(bd);
+
+        try {
+            Messenger msg = intent.getParcelableExtra("msg");
+            msg.send(message);
+        }catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+        //Log.v("MyIntentService","Arrive à 0");
+
+    }
+
+    private class liaisonLink extends Binder {
 
     }
 }

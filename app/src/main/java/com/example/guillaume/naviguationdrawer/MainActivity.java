@@ -1,14 +1,17 @@
 package com.example.guillaume.naviguationdrawer;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.support.design.widget.FloatingActionButton;
@@ -53,6 +56,8 @@ public class MainActivity extends AppCompatActivity
     private static final String PREF_FILE = "PrefFile";
 
     private SharedPreferences sharedPreferences;
+
+    private Messenger mailbox = new Messenger(new RecvMsg());
 
     public SharedPreferences getSharedPreferences() {
         return sharedPreferences;
@@ -108,13 +113,9 @@ public class MainActivity extends AppCompatActivity
             loadCurrentFragment(getCurrentFragment());
         }
 
-        final Handler rcvMsg = new Handler()
-        {
-            @Override
-            public void handleMessage(Message msg) {
-                //Toast.makeText(MainActivity.this, (CharSequence) msg.obj,Toast.LENGTH_LxONG).show();
-            }
-        };
+        Intent intent = new Intent(this, MyIntentService.class);
+        intent.putExtra("msg", mailbox);
+        startService(intent);
 
 
         //0 = Context.MODE_PRIVATE
@@ -259,6 +260,17 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private static class RecvMsg extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            Bundle bundle = msg.getData();
+            String recu = bundle.getString("Message");
+            Log.d("handleMessage", recu);
+        }
+    }
+
+
 }
 
 
