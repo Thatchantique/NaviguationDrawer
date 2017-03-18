@@ -9,16 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Your name" />
+        android:hint="Your name"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/emailText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:hint="Your email"/>
+        android:hint="Your email"
+        android:inputType="textEmailAddress" />
 
     <Button
         android:id="@+id/loadImage"

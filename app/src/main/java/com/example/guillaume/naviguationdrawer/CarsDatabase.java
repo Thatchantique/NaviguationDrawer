@@ -19,53 +19,45 @@ public class CarsDatabase {
 
     private DrivingSchoolDatabase dbDrivingSchool;
 
-    private SQLiteDatabase sqlite_db;
+    private SQLiteDatabase sqliteDb;
 
     private static final String CARS_TABLE_NAME = "cars";
 
-    public CarsDatabase(Context context)
-    {
+    public CarsDatabase(Context context) {
         dbDrivingSchool = DrivingSchoolDatabase.getInstance(context);
     }
 
-    public void open()
-    {
-        if(sqlite_db == null)
-            sqlite_db = dbDrivingSchool.getWritableDatabase();
+    public void open() {
+        if (sqliteDb == null)
+            sqliteDb = dbDrivingSchool.getWritableDatabase();
     }
 
-    public void close()
-    {
-        sqlite_db.close();
+    public void close() {
+        sqliteDb.close();
     }
 
-    public void insert(Cars cars)
-    {
+    public void insert(Cars cars) {
         ContentValues values = new ContentValues();
         values.put(KEY_CARS_MARK, cars.getMark());
         values.put(KEY_CARS_REGISTRATION, cars.getRegistration());
         values.put(KEY_CARS_MODEL, cars.getModel());
-        sqlite_db.insert(CARS_TABLE_NAME, null, values);
+        sqliteDb.insert(CARS_TABLE_NAME, null, values);
     }
 
-    public void update()
-    {
-
-    }
-
-    public void delete()
-    {
+    public void update() {
 
     }
 
+    public void delete() {
 
-    public LinkedList<Cars> selectAll()
-    {
+    }
+
+
+    public LinkedList<Cars> selectAll() {
         LinkedList<Cars> cars = new LinkedList<Cars>();
-        Cursor cursor = sqlite_db.rawQuery("SELECT * FROM " + CARS_TABLE_NAME, null);
-        if(cursor.getCount() != 0)
-        {
-            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
+        Cursor cursor = sqliteDb.rawQuery("SELECT * FROM " + CARS_TABLE_NAME, null);
+        if (cursor.getCount() != 0) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 Cars current_cars = cursorToCars(cursor);
                 cars.add(current_cars);
             }

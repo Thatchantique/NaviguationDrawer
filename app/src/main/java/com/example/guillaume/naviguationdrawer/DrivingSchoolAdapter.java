@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Guillaume on 12/02/2017.
  */
 
-public class DrivingSchoolAdapter extends RecyclerView.Adapter<DrivingSchoolAdapter.DrivingSchoolViewHolder>{
+public class DrivingSchoolAdapter extends RecyclerView.Adapter<DrivingSchoolAdapter.DrivingSchoolViewHolder> {
     private List<DrivingSchool> drivingSchools;
 
     public DrivingSchoolAdapter(List<DrivingSchool> drivingSchools) {
@@ -48,6 +48,7 @@ public class DrivingSchoolAdapter extends RecyclerView.Adapter<DrivingSchoolAdap
         private TextView autoEcoleTitle;
         private TextView autoEcoleAdresse;
         private ImageView logo;
+
         DrivingSchoolViewHolder(View view) {
             super(view);
             logo = (ImageView) view.findViewById(R.id.logo);

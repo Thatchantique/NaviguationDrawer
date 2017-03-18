@@ -48,7 +48,7 @@ public class BetterService extends Service {
 
     private void onActionTick() {
         Log.e("BetterService", "onActionTick");
-        if(tempsRestant <= 0) {
+        if (tempsRestant <= 0) {
             timer.cancel();
             this.onDestroy();
         }

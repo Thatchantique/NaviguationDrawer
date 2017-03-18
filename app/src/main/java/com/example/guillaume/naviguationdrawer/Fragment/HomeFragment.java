@@ -28,7 +28,7 @@ import static android.content.Context.BIND_AUTO_CREATE;
  * Created by Guillaume on 12/02/2017.
  */
 
-public class HomeFragment extends android.support.v4.app.Fragment{
+public class HomeFragment extends android.support.v4.app.Fragment {
     // TODO Afficher les resultats de la bdd
 
     private TextView textViewRemainingTime;
@@ -43,14 +43,13 @@ public class HomeFragment extends android.support.v4.app.Fragment{
     private class InconmingHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what)
-            {
-                case MSG_GET_REMAINING_TIME :
+            switch (msg.what) {
+                case MSG_GET_REMAINING_TIME:
                     int tmpsRestant = msg.arg1;
 
                     String stringRemainingTime = (tmpsRestant < 10) ? "0" + tmpsRestant : String.valueOf(tmpsRestant);
 
-                    Log.d("HomeFragment", "Voici le temps restant : "+tmpsRestant);
+                    Log.d("HomeFragment", "Voici le temps restant : " + tmpsRestant);
                     textViewRemainingTime.setText(getResources().getString(R.string.remaining_time, stringRemainingTime));
                     break;
                 default:
@@ -64,8 +63,8 @@ public class HomeFragment extends android.support.v4.app.Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.homefragment, container, false);
 
-        Button button_click = (Button) view.findViewById(R.id.button_click);
-        button_click.setOnClickListener(new View.OnClickListener() {
+        Button buttonClick = (Button) view.findViewById(R.id.button_click);
+        buttonClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBindTestBindingServiceClick(v);
