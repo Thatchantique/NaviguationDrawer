@@ -11,6 +11,6 @@
     <string name="home_welcome_msg">Welcome to %s</string>
     <string name="title_activity_service_time">ServiceTimeActivity</string>
 
-    <string name="remaining_time">Remaining time: %d</string>
+    <string name="remaining_time">00 : %s</string>
 
 </resources>

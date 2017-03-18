@@ -29,5 +29,4 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support.constraint:constraint-layout:+'
     testCompile 'junit:junit:4.12'
-    compile 'com.github.iwgang:countdownview:2.1.3'
 }

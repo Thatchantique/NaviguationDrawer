@@ -22,8 +22,6 @@ import com.example.guillaume.naviguationdrawer.BetterService;
 import com.example.guillaume.naviguationdrawer.MainActivity;
 import com.example.guillaume.naviguationdrawer.R;
 
-import cn.iwgang.countdownview.CountdownView;
-
 import static android.content.Context.BIND_AUTO_CREATE;
 
 /**
@@ -42,8 +40,6 @@ public class HomeFragment extends android.support.v4.app.Fragment{
     private Messenger messengerService;
     private Messenger mailbox = new Messenger(new InconmingHandler());
 
-    CountdownView mCvCountdownView;
-
     private class InconmingHandler extends Handler {
         @Override
         public void handleMessage(Message msg) {
@@ -51,9 +47,11 @@ public class HomeFragment extends android.support.v4.app.Fragment{
             {
                 case MSG_GET_REMAINING_TIME :
                     int tmpsRestant = msg.arg1;
+
+                    String stringRemainingTime = (tmpsRestant < 10) ? "0" + tmpsRestant : String.valueOf(tmpsRestant);
+
                     Log.d("HomeFragment", "Voici le temps restant : "+tmpsRestant);
-                    // textViewRemainingTime.setText(getResources().getString(R.string.remaining_time, tmpsRestant));
-                    mCvCountdownView.updateShow(tmpsRestant*1000);
+                    textViewRemainingTime.setText(getResources().getString(R.string.remaining_time, stringRemainingTime));
                     break;
                 default:
                     super.handleMessage(msg);
@@ -70,14 +68,11 @@ public class HomeFragment extends android.support.v4.app.Fragment{
         button_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCvCountdownView.start(10000); // Millisecond
                 onBindTestBindingServiceClick(v);
             }
         });
 
-        mCvCountdownView = (CountdownView) view.findViewById(R.id.CountdownView);
-
-        // textViewRemainingTime = (TextView) view.findViewById(R.id.text_view_remaining_time);
+        textViewRemainingTime = (TextView) view.findViewById(R.id.text_view_remaining_time);
 
         TextView textViewMessageWelcome = (TextView) view.findViewById(R.id.WelcomeMsg);
 
