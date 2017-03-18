@@ -67,13 +67,6 @@ public class MyIntentService extends IntentService {
         {
             e.printStackTrace();
         }
-
-
         //Log.v("MyIntentService","Arrive à 0");
-
-    }
-
-    private class liaisonLink extends Binder {
-
     }
 }

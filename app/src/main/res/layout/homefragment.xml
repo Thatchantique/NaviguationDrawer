@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/WelcomeMsg"
@@ -14,13 +15,23 @@
         android:text="@string/home_welcome_msg"
         android:textAlignment="center" />
 
-    <TextView
-        android:id="@+id/text_view_remaining_time"
-        android:layout_width="match_parent"
+    <cn.iwgang.countdownview.CountdownView
+        android:id="@+id/CountdownView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textAlignment="center"
-        android:layout_centerInParent="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:keepScreenOn="false"
+        app:isHideTimeBackground="true"
+        app:isShowMinute="true"
+        app:isShowSecond="true"
+        app:isTimeTextBold="true"
+        app:suffixGravity="center"
+        app:suffixMinute=":"
+        app:suffixSecond=""
+        app:suffixTextSize="12sp"
+        app:timeTextColor="#000000"
+        app:timeTextSize="50dp" />
 
     <Button
         android:id="@+id/button_click"

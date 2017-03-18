@@ -1,7 +1,6 @@
 package com.example.guillaume.naviguationdrawer.Fragment;
 
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -10,6 +9,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +22,8 @@ import com.example.guillaume.naviguationdrawer.BetterService;
 import com.example.guillaume.naviguationdrawer.MainActivity;
 import com.example.guillaume.naviguationdrawer.R;
 
+import cn.iwgang.countdownview.CountdownView;
+
 import static android.content.Context.BIND_AUTO_CREATE;
 
 /**
@@ -29,12 +31,35 @@ import static android.content.Context.BIND_AUTO_CREATE;
  */
 
 public class HomeFragment extends android.support.v4.app.Fragment{
-    //TODO Afficher les resultats de la bdd
+    // TODO Afficher les resultats de la bdd
 
-    TextView text_view_remaining_time;
+    private TextView textViewRemainingTime;
 
-    private Messenger mailbox = new Messenger(new MainActivity.());
+    public static final int MSG_REGISTER_CLIENT = 1;
+    public static final int MSG_UNREGISTER_CLIENT = 2;
+    public static final int MSG_GET_REMAINING_TIME = 3;
 
+    private Messenger messengerService;
+    private Messenger mailbox = new Messenger(new InconmingHandler());
+
+    CountdownView mCvCountdownView;
+
+    private class InconmingHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what)
+            {
+                case MSG_GET_REMAINING_TIME :
+                    int tmpsRestant = msg.arg1;
+                    Log.d("HomeFragment", "Voici le temps restant : "+tmpsRestant);
+                    // textViewRemainingTime.setText(getResources().getString(R.string.remaining_time, tmpsRestant));
+                    mCvCountdownView.updateShow(tmpsRestant*1000);
+                    break;
+                default:
+                    super.handleMessage(msg);
+            }
+        }
+    }
 
     @Nullable
     @Override
@@ -42,16 +67,17 @@ public class HomeFragment extends android.support.v4.app.Fragment{
         View view = inflater.inflate(R.layout.homefragment, container, false);
 
         Button button_click = (Button) view.findViewById(R.id.button_click);
-
         button_click.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
+                mCvCountdownView.start(10000); // Millisecond
                 onBindTestBindingServiceClick(v);
             }
         });
 
-        text_view_remaining_time = (TextView) view.findViewById(R.id.text_view_remaining_time);
+        mCvCountdownView = (CountdownView) view.findViewById(R.id.CountdownView);
+
+        // textViewRemainingTime = (TextView) view.findViewById(R.id.text_view_remaining_time);
 
         TextView textViewMessageWelcome = (TextView) view.findViewById(R.id.WelcomeMsg);
 
@@ -66,38 +92,33 @@ public class HomeFragment extends android.support.v4.app.Fragment{
     }
 
     private ServiceConnection connexion = new ServiceConnection() {
-
-        private BetterService.Link serve;
-
-
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            // serve = (TestBindingService.Liant) service;
-            serve = (BetterService.Link) service;
-            text_view_remaining_time.setText(getResources().getString(R.string.remaining_time, serve.getTempsRestant()));
+            messengerService = new Messenger(service);
+
+            // Si c'est un appel static, tu fais appel à la classe
+            try {
+                Message message = Message.obtain(null, MSG_REGISTER_CLIENT);
+                message.replyTo = mailbox;
+                messengerService.send(message);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+
+            // textViewRemainingTime.setText(getResources().getString(R.string.remaining_time, mail.getTempsRestant()));
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            serve = null;
+            messengerService = null;
         }
     };
 
     public void onBindTestBindingServiceClick(View view) {
         getActivity().bindService(new Intent(getActivity(), BetterService.class), connexion, BIND_AUTO_CREATE);
-        Log.d("onBind", "coucou");
     }
 
     public void onUnbindClick(View view) {
         getActivity().unbindService(connexion);
-    }
-    private class handlerBetter extends Handler
-    {
-        @Override
-        public void handleMessage(Message msg) {
-            Bundle bundle = msg.getData();
-            String recu = bundle.getString("Message");
-            Log.d("handleMessage", recu);
-        }
     }
 }
