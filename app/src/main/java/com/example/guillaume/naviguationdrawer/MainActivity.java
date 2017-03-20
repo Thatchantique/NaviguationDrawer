@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     public static final String TAG_DRIVEN = "driven";
     public static final String TAG_RESULT = "result";
     public static final String TAG_SHARE = "share";
+    public static final String TAG_NETWORK = "network";
 
     private static final String PREF_FILE = "PrefFile";
 
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 
         isStoragePermissionGranted();
 
@@ -173,6 +175,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case TAG_SETTINGS:
                 currentFragment = new SettingFragment();
+                break;
+            case TAG_NETWORK:
+                currentFragment = new SimpleNetworkFragment();
                 break;
         }
         return currentFragment;

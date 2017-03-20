@@ -30,7 +30,7 @@ public class MyIntentService extends IntentService {
     public static final String EXTRA_PARAM2 = "com.example.guillaume.naviguationdrawer.extra.PARAM2";
 
     public static int tempsRestant;
-    
+
     public MyIntentService() {
         super("MyIntentService");
     }
