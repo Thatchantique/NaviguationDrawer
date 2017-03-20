@@ -52,6 +52,8 @@ public class SimpleNetworkFragment extends Fragment {
                     urlConnection = (HttpURLConnection) iutC3URL.openConnection();
                     urlConnection.connect();
 
+
+
                     InputStream inputStream = urlConnection.getInputStream();
                 } catch (IOException e) {
                     e.printStackTrace();

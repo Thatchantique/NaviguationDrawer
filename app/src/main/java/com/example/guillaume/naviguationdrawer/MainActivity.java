@@ -247,6 +247,10 @@ public class MainActivity extends AppCompatActivity
                 CURRENT_TAG = TAG_SETTINGS;
                 currentFragment = getCurrentFragment();
                 break;
+            case R.id.nav_network:
+                CURRENT_TAG = TAG_NETWORK;
+                currentFragment = getCurrentFragment();
+                break;
             case R.id.nav_send:
                 CURRENT_TAG = TAG_HOME;
                 currentFragment = getCurrentFragment();
