@@ -35,19 +35,10 @@ public class WebsiteLoader extends AsyncTaskLoader {
             urlConnection.connect();
 
             InputStream inputStream = urlConnection.getInputStream();
-            pageResult = readResponse(inputStream);
+            pageResult = NetworkUtils.readResponse(inputStream);
         } catch (IOException e) {
             Log.e("WebsiteLoader", e.getMessage());
         }
         return pageResult;
-    }
-
-    private static String readResponse(InputStream inputStream) throws IOException {
-        String line, result = "";
-        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-        while ((line = br.readLine()) != null) {
-            result += line;
-        }
-        return result;
     }
 }

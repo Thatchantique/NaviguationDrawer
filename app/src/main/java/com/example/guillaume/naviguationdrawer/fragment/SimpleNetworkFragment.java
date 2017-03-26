@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.guillaume.naviguationdrawer.NetworkUtils;
 import com.example.guillaume.naviguationdrawer.R;
 import com.example.guillaume.naviguationdrawer.WebsiteLoader;
 
@@ -36,18 +38,25 @@ public class SimpleNetworkFragment extends Fragment implements LoaderManager.Loa
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                setLoaderManager();
+                if(NetworkUtils.isOnline(getContext())) {
+                    setLoaderManager();
+                } else {
+                    Toast.makeText(getActivity(), "You're not connected, shame on you", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         return view;
     }
 
+
     public void setLoaderManager() {
         Bundle url = new Bundle();
         url.putCharSequence("url", "https://www.google.fr");
         getLoaderManager().restartLoader(1, url, this).forceLoad();
     }
+
+
 
     @Override
     public Loader<String> onCreateLoader(int id, Bundle args) {

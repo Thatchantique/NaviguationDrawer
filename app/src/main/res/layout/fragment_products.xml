@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/text_view_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_get_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#25A0FF"
+            android:text="Get List"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/button_create_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#25A0FF"
+            android:text="Create Order"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white" />
+
+
+     <Button
+            android:id="@+id/button_display_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#25A0FF"
+            android:text="Display Order"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/button_add_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#25A0FF"
+            android:text="Add Product"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/button_delete_product"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#25A0FF"
+            android:text="Delete Product"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+
+</RelativeLayout>

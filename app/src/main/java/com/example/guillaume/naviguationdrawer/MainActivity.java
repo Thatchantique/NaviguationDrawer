@@ -31,6 +31,7 @@ import android.widget.TextView;
 import com.example.guillaume.naviguationdrawer.fragment.DrivingFormFragment;
 import com.example.guillaume.naviguationdrawer.fragment.HomeFragment;
 import com.example.guillaume.naviguationdrawer.fragment.DrivingSchoolFragment;
+import com.example.guillaume.naviguationdrawer.fragment.ProductsFragment;
 import com.example.guillaume.naviguationdrawer.fragment.SettingFragment;
 import com.example.guillaume.naviguationdrawer.fragment.SimpleNetworkFragment;
 
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     public static final String TAG_DRIVING_FORM = "driving_form";
     public static final String TAG_SHARE = "share";
     public static final String TAG_NETWORK = "network";
+    public static final String TAG_PRODUCTS = "products";
 
     private static final String PREF_FILE = "PrefFile";
 
@@ -179,6 +181,9 @@ public class MainActivity extends AppCompatActivity
             case TAG_DRIVING_FORM:
                 currentFragment = new DrivingFormFragment();
                 break;
+            case TAG_PRODUCTS:
+                currentFragment = new ProductsFragment();
+                break;
         }
         return currentFragment;
     }
@@ -251,12 +256,22 @@ public class MainActivity extends AppCompatActivity
                 CURRENT_TAG = TAG_NETWORK;
                 currentFragment = getCurrentFragment();
                 break;
+            case R.id.nav_products:
+                CURRENT_TAG = TAG_PRODUCTS;
+                currentFragment = getCurrentFragment();
+                break;
             case R.id.nav_share:
+                CURRENT_TAG = TAG_HOME;
+                currentFragment = getCurrentFragment();
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/html");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Share this wonderful app !");
+                startActivity(Intent.createChooser(sharingIntent,"Share using"));
                 break;
             case R.id.nav_send:
                 CURRENT_TAG = TAG_HOME;
                 currentFragment = getCurrentFragment();
-                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
                 emailIntent.setData(Uri.parse("mailto:"));
                 String[] to = {"21504004@etu.unicaen.fr"};
                 emailIntent.putExtra(Intent.EXTRA_EMAIL, to);

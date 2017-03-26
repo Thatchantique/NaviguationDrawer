@@ -32,6 +32,8 @@ public class HomeFragment extends android.support.v4.app.Fragment {
     private TextView textViewRemainingTime;
     private Button buttonClick;
 
+    private boolean isServiceRegistered = false;
+
     public static final int MSG_REGISTER_CLIENT = 1;
     public static final int MSG_UNREGISTER_CLIENT = 2;
     public static final int MSG_GET_REMAINING_TIME = 3;
@@ -67,6 +69,7 @@ public class HomeFragment extends android.support.v4.app.Fragment {
             @Override
             public void onClick(View v) {
                 onBindTestBindingServiceClick(v);
+                isServiceRegistered = true;
             }
         });
 
@@ -119,14 +122,15 @@ public class HomeFragment extends android.support.v4.app.Fragment {
     public void onDestroy() {
         super.onDestroy();
 
-        try {
-            Message message = Message.obtain(null, MSG_UNREGISTER_CLIENT);
-            message.replyTo = mailbox;
-            messengerService.send(message);
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        if(isServiceRegistered) {
+            try {
+                Message message = Message.obtain(null, MSG_UNREGISTER_CLIENT);
+                message.replyTo = mailbox;
+                messengerService.send(message);
+            } catch (RemoteException e) {
+                Log.e("HomeFragment", e.getMessage());
+            }
+            onUnbindClick(buttonClick);
         }
-
-        onUnbindClick(buttonClick);
     }
 }
