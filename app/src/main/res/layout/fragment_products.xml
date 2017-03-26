@@ -9,7 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/linearLayout" />
 
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -17,46 +16,67 @@
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button_get_list"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#25A0FF"
-            android:text="Get List"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white" />
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button_create_order"
+            <Button
+                android:id="@+id/button_get_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#25A0FF"
+                android:text="Get List"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/button_create_order"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="8dp"
+                android:background="#25A0FF"
+                android:text="Create Order"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#25A0FF"
-            android:text="Create Order"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white" />
+            android:padding="8dp"
+            android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/button_display_order"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#25A0FF"
+                android:text="Display Order"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white" />
 
-     <Button
-            android:id="@+id/button_display_order"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#25A0FF"
-            android:text="Display Order"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white" />
-
-        <Button
-            android:id="@+id/button_add_product"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#25A0FF"
-            android:text="Add Product"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white" />
+            <Button
+                android:id="@+id/button_add_product"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#25A0FF"
+                android:layout_marginLeft="8dp"
+                android:text="Add Product"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/button_delete_product"
@@ -64,6 +84,9 @@
             android:layout_height="wrap_content"
             android:background="#25A0FF"
             android:text="Delete Product"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textColor="@android:color/white" />

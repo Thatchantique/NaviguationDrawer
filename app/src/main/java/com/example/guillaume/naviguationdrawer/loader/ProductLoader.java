@@ -2,15 +2,9 @@ package com.example.guillaume.naviguationdrawer.loader;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
 import com.example.guillaume.naviguationdrawer.utils.NetworkUtils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 /**
  * Created by Guillaume on 26/03/2017.
@@ -47,8 +41,7 @@ public class ProductLoader extends AsyncTaskLoader {
             case CREATE_ORDER:
                 break;
             case ADD_PRODUCT_TO_ORDER:
-                // Changer l'url
-                // Creation d'une string avec GSON
+                url = baseURL + "add";
                 break;
         }
 
@@ -57,22 +50,19 @@ public class ProductLoader extends AsyncTaskLoader {
 
     @Override
     public Object loadInBackground() {
-        String pageResult = "";
-        BufferedReader buffReader = null;
-        HttpURLConnection urlConnection = null;
-
-        try {
-            URL driveURL = new URL(url);
-            Log.e("ProductLoader", url);
-
-            urlConnection = (HttpURLConnection) driveURL.openConnection();
-            urlConnection.connect();
-
-            InputStream inputStream = urlConnection.getInputStream();
-            pageResult = NetworkUtils.readResponse(inputStream);
-        } catch (IOException e) {
-            Log.e("WebsiteLoader", e.getMessage());
+        switch (currentMethod) {
+            case GET:
+                return NetworkUtils.getData(url);
+            case DELETE:
+                return NetworkUtils.getData(url);
+            case SHOW_ORDER:
+                return "";
+            case CREATE_ORDER:
+                return "";
+            case ADD_PRODUCT_TO_ORDER:
+                return NetworkUtils.postData(url, arg);
+            default:
+                return "";
         }
-        return pageResult;
     }
 }

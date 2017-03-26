@@ -1,4 +1,4 @@
-package com.example.guillaume.naviguationdrawer;
+package com.example.guillaume.naviguationdrawer.services;
 
 import android.app.Service;
 import android.content.Intent;

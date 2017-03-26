@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.guillaume.naviguationdrawer.BetterService;
+import com.example.guillaume.naviguationdrawer.services.BetterService;
 import com.example.guillaume.naviguationdrawer.MainActivity;
 import com.example.guillaume.naviguationdrawer.R;
 

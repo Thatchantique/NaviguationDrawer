@@ -36,6 +36,7 @@ import com.example.guillaume.naviguationdrawer.fragment.SettingFragment;
 import com.example.guillaume.naviguationdrawer.fragment.SimpleNetworkFragment;
 import com.example.guillaume.naviguationdrawer.model.Cars;
 import com.example.guillaume.naviguationdrawer.model.DrivingSchool;
+import com.example.guillaume.naviguationdrawer.services.MyIntentService;
 import com.example.guillaume.naviguationdrawer.utils.IntentUtils;
 
 import java.util.List;

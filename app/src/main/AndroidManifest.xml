@@ -27,11 +27,11 @@
         </activity>
 
         <service
-            android:name=".MyIntentService"
+            android:name=".services.MyIntentService"
             android:exported="false"
             android:label="timeService" />
         <service
-            android:name=".BetterService"
+            android:name=".services.BetterService"
             android:exported="false" />
     </application>
 

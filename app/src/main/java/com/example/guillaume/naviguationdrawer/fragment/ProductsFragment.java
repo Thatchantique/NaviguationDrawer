@@ -58,14 +58,18 @@ public class ProductsFragment extends Fragment implements LoaderManager.LoaderCa
         });
 
         Button add  = (Button) view.findViewById(R.id.button_add_product);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentMethod = ProductLoader.Methods.ADD_PRODUCT_TO_ORDER;
+                launchMethod();
+            }
+        });
+
         Button create = (Button) view.findViewById(R.id.button_create_order);
         Button show = (Button) view.findViewById(R.id.button_display_order);
 
         getLoaderManager().initLoader(1, null, this);
-
-        Product product = new Product("Persona 5", 70f);
-        String jsonResult = new Gson().toJson(product, Product.class);
-        Log.e("ProductsFragment", jsonResult);
 
         return view;
     }
@@ -73,10 +77,19 @@ public class ProductsFragment extends Fragment implements LoaderManager.LoaderCa
     public void setLoaderManager() {
         Bundle bundle = new Bundle();
         bundle.putSerializable("method", currentMethod);
+
         // TODO: change to a dynamic ID
-        if(currentMethod == ProductLoader.Methods.DELETE) {
-            bundle.putString("arg", "1");
+        switch (currentMethod) {
+            case DELETE:
+                bundle.putString("arg", "1");
+                break;
+            case ADD_PRODUCT_TO_ORDER:
+                Product product = new Product("Persona 5", 70f);
+                String jsonResult = new Gson().toJson(product, Product.class);
+                bundle.putString("arg", jsonResult);
+                break;
         }
+
         getLoaderManager().restartLoader(1, bundle, this).forceLoad();
     }
 
@@ -107,6 +120,9 @@ public class ProductsFragment extends Fragment implements LoaderManager.LoaderCa
                     result.setText(buildResult(products));
                     break;
                 case DELETE:
+                    result.setText(data);
+                    break;
+                case ADD_PRODUCT_TO_ORDER:
                     result.setText(data);
                     break;
             }
