@@ -1,4 +1,4 @@
-package com.example.guillaume.naviguationdrawer;
+package com.example.guillaume.naviguationdrawer.model;
 
 import com.google.gson.annotations.SerializedName;
 

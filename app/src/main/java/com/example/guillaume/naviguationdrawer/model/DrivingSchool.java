@@ -1,4 +1,4 @@
-package com.example.guillaume.naviguationdrawer;
+package com.example.guillaume.naviguationdrawer.model;
 
 import java.io.Serializable;
 import java.util.UUID;

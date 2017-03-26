@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.guillaume.naviguationdrawer.model.Cars;
+
 import java.util.LinkedList;
 
 /**

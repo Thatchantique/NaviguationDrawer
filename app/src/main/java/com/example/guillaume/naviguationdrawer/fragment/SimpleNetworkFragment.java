@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,9 +15,9 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.guillaume.naviguationdrawer.NetworkUtils;
+import com.example.guillaume.naviguationdrawer.utils.NetworkUtils;
 import com.example.guillaume.naviguationdrawer.R;
-import com.example.guillaume.naviguationdrawer.WebsiteLoader;
+import com.example.guillaume.naviguationdrawer.loader.WebsiteLoader;
 
 
 public class SimpleNetworkFragment extends Fragment implements LoaderManager.LoaderCallbacks<String> {

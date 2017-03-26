@@ -34,6 +34,9 @@ import com.example.guillaume.naviguationdrawer.fragment.DrivingSchoolFragment;
 import com.example.guillaume.naviguationdrawer.fragment.ProductsFragment;
 import com.example.guillaume.naviguationdrawer.fragment.SettingFragment;
 import com.example.guillaume.naviguationdrawer.fragment.SimpleNetworkFragment;
+import com.example.guillaume.naviguationdrawer.model.Cars;
+import com.example.guillaume.naviguationdrawer.model.DrivingSchool;
+import com.example.guillaume.naviguationdrawer.utils.IntentUtils;
 
 import java.util.List;
 
@@ -80,8 +83,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         isStoragePermissionGranted();
 
         TextView textViewUsername = (TextView) findViewById(R.id.user_name_hello);
@@ -117,11 +118,8 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(this, MyIntentService.class);
         intent.putExtra("msg", mailbox);
         startService(intent);
-
-
         //0 = Context.MODE_PRIVATE
     }
-
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -130,7 +128,6 @@ public class MainActivity extends AppCompatActivity
             loadUserPreferences();
         }
     }
-
 
     public void loadUserPreferences() {
         TextView textViewUsername = (TextView) findViewById(R.id.user_name_hello);
@@ -263,22 +260,12 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_share:
                 CURRENT_TAG = TAG_HOME;
                 currentFragment = getCurrentFragment();
-                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("text/html");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Share this wonderful app !");
-                startActivity(Intent.createChooser(sharingIntent,"Share using"));
+                IntentUtils.sendShareIntent(getApplicationContext());
                 break;
             case R.id.nav_send:
                 CURRENT_TAG = TAG_HOME;
                 currentFragment = getCurrentFragment();
-                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-                emailIntent.setData(Uri.parse("mailto:"));
-                String[] to = {"21504004@etu.unicaen.fr"};
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Prise de contact");
-                emailIntent.putExtra(Intent.EXTRA_TEXT, "Ceci est le texte");
-                emailIntent.setType("message/rfc822");
-                startActivity(Intent.createChooser(emailIntent, "Envoyer à..."));
+                IntentUtils.sendEmailIntent(getApplicationContext());
                 break;
         }
         loadCurrentFragment(currentFragment);
@@ -297,29 +284,20 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void sendBackToDrivingSchoolList(DrivingSchool drivingSchool) {
-        // Bundle
         Bundle bd = new Bundle();
         bd.putSerializable("drivingSchool", drivingSchool);
-        // Change framgent en cours
         CURRENT_TAG = TAG_DRIVEN;
         Fragment currentFrag = getCurrentFragment();
         currentFrag.setArguments(bd);
-
-        // post fragment
         loadCurrentFragment(currentFrag);
     }
 
-
-    public void editSendBack(DrivingSchool ds)
-    {
+    public void editSendBack(DrivingSchool ds) {
         Bundle bd = new Bundle();
         bd.putSerializable("drivingSchool", ds);
         CURRENT_TAG = TAG_DRIVING_FORM;
-        Fragment currentFrag =getCurrentFragment();
+        Fragment currentFrag = getCurrentFragment();
         currentFrag.setArguments(bd);
         loadCurrentFragment(currentFrag);
     }
-
 }
-
-

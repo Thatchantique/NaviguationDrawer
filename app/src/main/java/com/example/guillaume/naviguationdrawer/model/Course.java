@@ -1,4 +1,4 @@
-package com.example.guillaume.naviguationdrawer;
+package com.example.guillaume.naviguationdrawer.model;
 
 /**
  * Created by Gaujac on 15/02/2017.

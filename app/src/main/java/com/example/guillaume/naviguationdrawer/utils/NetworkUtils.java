@@ -1,4 +1,4 @@
-package com.example.guillaume.naviguationdrawer;
+package com.example.guillaume.naviguationdrawer.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

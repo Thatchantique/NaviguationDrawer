@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.guillaume.naviguationdrawer.DrivingSchool;
+import com.example.guillaume.naviguationdrawer.model.DrivingSchool;
 import com.example.guillaume.naviguationdrawer.DrivingSchoolAdapter;
 import com.example.guillaume.naviguationdrawer.R;
 

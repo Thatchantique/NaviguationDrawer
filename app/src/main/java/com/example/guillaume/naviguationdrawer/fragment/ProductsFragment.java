@@ -13,9 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.guillaume.naviguationdrawer.NetworkUtils;
-import com.example.guillaume.naviguationdrawer.Product;
-import com.example.guillaume.naviguationdrawer.ProductLoader;
+import com.example.guillaume.naviguationdrawer.utils.NetworkUtils;
+import com.example.guillaume.naviguationdrawer.model.Product;
+import com.example.guillaume.naviguationdrawer.loader.ProductLoader;
 import com.example.guillaume.naviguationdrawer.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -49,11 +49,23 @@ public class ProductsFragment extends Fragment implements LoaderManager.LoaderCa
         });
 
         Button delete = (Button) view.findViewById(R.id.button_delete_product);
-        Button show = (Button) view.findViewById(R.id.button_display_order);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentMethod = ProductLoader.Methods.DELETE;
+                launchMethod();
+            }
+        });
+
         Button add  = (Button) view.findViewById(R.id.button_add_product);
         Button create = (Button) view.findViewById(R.id.button_create_order);
+        Button show = (Button) view.findViewById(R.id.button_display_order);
 
         getLoaderManager().initLoader(1, null, this);
+
+        Product product = new Product("Persona 5", 70f);
+        String jsonResult = new Gson().toJson(product, Product.class);
+        Log.e("ProductsFragment", jsonResult);
 
         return view;
     }
@@ -61,6 +73,10 @@ public class ProductsFragment extends Fragment implements LoaderManager.LoaderCa
     public void setLoaderManager() {
         Bundle bundle = new Bundle();
         bundle.putSerializable("method", currentMethod);
+        // TODO: change to a dynamic ID
+        if(currentMethod == ProductLoader.Methods.DELETE) {
+            bundle.putString("arg", "1");
+        }
         getLoaderManager().restartLoader(1, bundle, this).forceLoad();
     }
 
@@ -75,9 +91,10 @@ public class ProductsFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public Loader<String> onCreateLoader(int id, Bundle args) {
         if (args == null) {
-            return new ProductLoader(getActivity(), ProductLoader.Methods.GET);
+            return new ProductLoader(getActivity(), ProductLoader.Methods.GET, "");
         }
-        return new ProductLoader(getActivity(), (ProductLoader.Methods) args.getSerializable("method"));
+        String arg = (args.getString("arg") != null) ? args.getString("arg") : "";
+        return new ProductLoader(getActivity(), (ProductLoader.Methods) args.getSerializable("method"), arg);
     }
 
     @Override
@@ -89,8 +106,10 @@ public class ProductsFragment extends Fragment implements LoaderManager.LoaderCa
                     ArrayList<Product> products = new Gson().fromJson(data, listType);
                     result.setText(buildResult(products));
                     break;
+                case DELETE:
+                    result.setText(data);
+                    break;
             }
-            Log.e("ProductsFragment", data);
         }
     }
 
@@ -107,5 +126,4 @@ public class ProductsFragment extends Fragment implements LoaderManager.LoaderCa
     public void onLoaderReset(Loader<String> loader) {
         Log.e("SimpleNetworkFragment", "Indispo.");
     }
-
 }
