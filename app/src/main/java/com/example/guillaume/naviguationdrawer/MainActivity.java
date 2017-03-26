@@ -293,6 +293,18 @@ public class MainActivity extends AppCompatActivity
         // post fragment
         loadCurrentFragment(currentFrag);
     }
+
+
+    public void editSendBack(DrivingSchool ds)
+    {
+        Bundle bd = new Bundle();
+        bd.putSerializable("drivingSchool", ds);
+        CURRENT_TAG = TAG_DRIVING_FORM;
+        Fragment currentFrag =getCurrentFragment();
+        currentFrag.setArguments(bd);
+        loadCurrentFragment(currentFrag);
+    }
+
 }
 
 

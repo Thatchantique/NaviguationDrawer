@@ -1,13 +1,11 @@
 package com.example.guillaume.naviguationdrawer.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +22,7 @@ import java.util.List;
  */
 
 public class DrivingSchoolFragment extends Fragment {
-    private DrivingSchoolAdapter drivingSchoolAdapter;
+    private static List<DrivingSchool> drivingSchools;
 
     @Nullable
     @Override
@@ -36,10 +34,33 @@ public class DrivingSchoolFragment extends Fragment {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        drivingSchoolAdapter = new DrivingSchoolAdapter(buildDrivingSchool());
+        if (drivingSchools == null) {
+            drivingSchools = buildDrivingSchool();
+        }
+        if (getArguments() != null) {
+            DrivingSchool ds = (DrivingSchool) getArguments().getSerializable("drivingSchool");
+            int index = contains(ds);
+            if (index != -1) {
+                drivingSchools.get(index).updateDrivingSchool(ds);
+            } else {
+                drivingSchools.add(ds);
+            }
+        }
+
+        DrivingSchoolAdapter drivingSchoolAdapter = new DrivingSchoolAdapter(drivingSchools, getActivity());
         recyclerView.setAdapter(drivingSchoolAdapter);
 
         return view;
+    }
+
+    private int contains(DrivingSchool drivingSchool) {
+        int index = -1;
+        for (int i = 0; i < drivingSchools.size(); i++) {
+            if (drivingSchools.get(i).getId().equals(drivingSchool.getId())) {
+                return i;
+            }
+        }
+        return index;
     }
 
     public List<DrivingSchool> buildDrivingSchool() {

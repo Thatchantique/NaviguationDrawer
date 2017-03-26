@@ -51,7 +51,9 @@ public class BetterService extends Service {
         }
         try {
             Message remainingTimeMessage = Message.obtain(null, HomeFragment.MSG_GET_REMAINING_TIME, tempsRestant, 0);
-            client.send(remainingTimeMessage);
+            if(client != null) {
+                client.send(remainingTimeMessage);
+            }
         } catch (RemoteException e) {
             e.printStackTrace();
         }

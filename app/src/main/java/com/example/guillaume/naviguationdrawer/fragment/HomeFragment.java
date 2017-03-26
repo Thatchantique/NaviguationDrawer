@@ -29,8 +29,8 @@ import static android.content.Context.BIND_AUTO_CREATE;
  */
 
 public class HomeFragment extends android.support.v4.app.Fragment {
-
     private TextView textViewRemainingTime;
+    private Button buttonClick;
 
     public static final int MSG_REGISTER_CLIENT = 1;
     public static final int MSG_UNREGISTER_CLIENT = 2;
@@ -62,7 +62,7 @@ public class HomeFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.homefragment, container, false);
 
-        Button buttonClick = (Button) view.findViewById(R.id.button_click);
+        buttonClick = (Button) view.findViewById(R.id.button_click);
         buttonClick.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,5 +113,20 @@ public class HomeFragment extends android.support.v4.app.Fragment {
 
     public void onUnbindClick(View view) {
         getActivity().unbindService(connexion);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        try {
+            Message message = Message.obtain(null, MSG_UNREGISTER_CLIENT);
+            message.replyTo = mailbox;
+            messengerService.send(message);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+        onUnbindClick(buttonClick);
     }
 }

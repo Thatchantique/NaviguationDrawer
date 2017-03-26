@@ -28,13 +28,26 @@ public class DrivingFormFragment extends Fragment {
         editTextSchoolAdr = (EditText) view.findViewById(R.id.editTextSchoolAdr);
         submitButton = (Button) view.findViewById(R.id.buttonSubmit);
 
+        if (getArguments() != null) {
+            DrivingSchool ds = (DrivingSchool) getArguments().getSerializable("drivingSchool");
+            editTextSchoolName.setText(ds.getName());
+            editTextSchoolAdr.setText(ds.getAdress());
+        }
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String adresseAutoEcole = editTextSchoolAdr.getText().toString();
                 String nameDrivingSchool = editTextSchoolName.getText().toString();
 
-                DrivingSchool newDrivingSchool = new DrivingSchool(adresseAutoEcole, nameDrivingSchool);
+                DrivingSchool newDrivingSchool;
+                if (getArguments() != null) {
+                    newDrivingSchool =(DrivingSchool) getArguments().getSerializable("drivingSchool");
+                    newDrivingSchool.setAdresse(adresseAutoEcole);
+                    newDrivingSchool.setName(nameDrivingSchool);
+                } else {
+                    newDrivingSchool = new DrivingSchool(adresseAutoEcole, nameDrivingSchool);
+                }
                 ((MainActivity) getActivity()).sendBackToDrivingSchoolList(newDrivingSchool);
             }
         });
