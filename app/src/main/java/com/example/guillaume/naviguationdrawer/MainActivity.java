@@ -1,17 +1,14 @@
 package com.example.guillaume.naviguationdrawer;
 
 import android.Manifest;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.support.design.widget.FloatingActionButton;
@@ -30,13 +27,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.guillaume.naviguationdrawer.Fragment.HomeFragment;
-import com.example.guillaume.naviguationdrawer.Fragment.DrivingSchoolFragment;
-import com.example.guillaume.naviguationdrawer.Fragment.SettingFragment;
+import com.example.guillaume.naviguationdrawer.fragment.DrivingFormFragment;
+import com.example.guillaume.naviguationdrawer.fragment.HomeFragment;
+import com.example.guillaume.naviguationdrawer.fragment.DrivingSchoolFragment;
+import com.example.guillaume.naviguationdrawer.fragment.SettingFragment;
+import com.example.guillaume.naviguationdrawer.fragment.SimpleNetworkFragment;
 
-import java.net.URI;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -50,7 +47,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG_SETTINGS = "settings";
     public static String CURRENT_TAG = TAG_HOME;
     public static final String TAG_DRIVEN = "driven";
-    public static final String TAG_RESULT = "result";
+    public static final String TAG_DRIVING_FORM = "driving_form";
     public static final String TAG_SHARE = "share";
     public static final String TAG_NETWORK = "network";
 
@@ -64,17 +61,17 @@ public class MainActivity extends AppCompatActivity
         return sharedPreferences;
     }
 
-    public  boolean isStoragePermissionGranted() {
+    public boolean isStoragePermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                Log.v("MainActivity","Permission is granted");
+                Log.v("MainActivity", "Permission is granted");
                 return true;
             } else {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 return false;
             }
         } else {
-            Log.v("MainActivity","Permission is granted");
+            Log.v("MainActivity", "Permission is granted");
             return true;
         }
     }
@@ -139,12 +136,12 @@ public class MainActivity extends AppCompatActivity
         String username = sharedPreferences.getString("name", "user");
         String mail = sharedPreferences.getString("email", "21504004");
         CircleImageView circleImageView = (CircleImageView) findViewById(R.id.imageView);
-        String avatarPath =  sharedPreferences.getString("avatar", "");
+        String avatarPath = sharedPreferences.getString("avatar", "");
         //String imagePath = sharedPreferences.getString("avatar", "");
         //circleImageView.setImageURI();
         textViewUsername.setText(getResources().getString(R.string.user_name_hello, "username"));
         textViewEmail.setText(mail);
-        if(avatarPath.length() > 0) {
+        if (avatarPath.length() > 0) {
             circleImageView.setImageURI(Uri.parse(avatarPath));
         }
     }
@@ -178,6 +175,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case TAG_NETWORK:
                 currentFragment = new SimpleNetworkFragment();
+                break;
+            case TAG_DRIVING_FORM:
+                currentFragment = new DrivingFormFragment();
                 break;
         }
         return currentFragment;
@@ -239,8 +239,8 @@ public class MainActivity extends AppCompatActivity
                 CURRENT_TAG = TAG_DRIVEN;
                 currentFragment = getCurrentFragment();
                 break;
-            case R.id.nav_result:
-                CURRENT_TAG = TAG_RESULT;
+            case R.id.nav_driving_form:
+                CURRENT_TAG = TAG_DRIVING_FORM;
                 currentFragment = getCurrentFragment();
                 break;
             case R.id.nav_settings:
@@ -250,6 +250,8 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_network:
                 CURRENT_TAG = TAG_NETWORK;
                 currentFragment = getCurrentFragment();
+                break;
+            case R.id.nav_share:
                 break;
             case R.id.nav_send:
                 CURRENT_TAG = TAG_HOME;
@@ -277,6 +279,19 @@ public class MainActivity extends AppCompatActivity
             String recu = bundle.getString("Message");
             Log.d("handleMessage", recu);
         }
+    }
+
+    public void sendBackToDrivingSchoolList(DrivingSchool drivingSchool) {
+        // Bundle
+        Bundle bd = new Bundle();
+        bd.putSerializable("drivingSchool", drivingSchool);
+        // Change framgent en cours
+        CURRENT_TAG = TAG_DRIVEN;
+        Fragment currentFrag = getCurrentFragment();
+        currentFrag.setArguments(bd);
+
+        // post fragment
+        loadCurrentFragment(currentFrag);
     }
 }
 

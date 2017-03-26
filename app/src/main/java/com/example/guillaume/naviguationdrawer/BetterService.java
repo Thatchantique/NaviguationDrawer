@@ -2,11 +2,8 @@ package com.example.guillaume.naviguationdrawer;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
@@ -14,13 +11,13 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.guillaume.naviguationdrawer.Fragment.HomeFragment;
+import com.example.guillaume.naviguationdrawer.fragment.HomeFragment;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.example.guillaume.naviguationdrawer.Fragment.HomeFragment.MSG_REGISTER_CLIENT;
-import static com.example.guillaume.naviguationdrawer.Fragment.HomeFragment.MSG_UNREGISTER_CLIENT;
+import static com.example.guillaume.naviguationdrawer.fragment.HomeFragment.MSG_REGISTER_CLIENT;
+import static com.example.guillaume.naviguationdrawer.fragment.HomeFragment.MSG_UNREGISTER_CLIENT;
 
 /**
  * Created by Guillaume on 17/03/2017.
@@ -50,7 +47,7 @@ public class BetterService extends Service {
         Log.e("BetterService", "onActionTick");
         if (tempsRestant <= 0) {
             timer.cancel();
-            this.onDestroy();
+            stopSelf();
         }
         try {
             Message remainingTimeMessage = Message.obtain(null, HomeFragment.MSG_GET_REMAINING_TIME, tempsRestant, 0);
@@ -85,15 +82,8 @@ public class BetterService extends Service {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         Log.e("BetterService", "onDestroy");
-
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getApplicationContext(), "Le service est mort :'(", Toast.LENGTH_SHORT).show();
-            }
-        });
+        Toast.makeText(getApplicationContext(), "Le service est mort :'(", Toast.LENGTH_SHORT).show();
+        super.onDestroy();
     }
 }

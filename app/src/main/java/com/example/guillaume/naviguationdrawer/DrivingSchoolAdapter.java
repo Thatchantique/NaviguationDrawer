@@ -26,21 +26,22 @@ public class DrivingSchoolAdapter extends RecyclerView.Adapter<DrivingSchoolAdap
     public DrivingSchoolViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View viewItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.driving_item, parent, false);
         return new DrivingSchoolViewHolder(viewItem);
-
     }
 
     @Override
     public void onBindViewHolder(DrivingSchoolViewHolder holder, int position) {
         DrivingSchool currentDrivingSchool = drivingSchools.get(position);
-        holder.logo.setImageResource(currentDrivingSchool.getIcon());
+        if (currentDrivingSchool.getIcon() == -1) {
+            holder.logo.setImageResource(0);
+        } else {
+            holder.logo.setImageResource(currentDrivingSchool.getIcon());
+        }
         holder.autoEcoleAdresse.setText(currentDrivingSchool.getAdress());
         holder.autoEcoleTitle.setText(currentDrivingSchool.getName());
-
     }
 
     @Override
     public int getItemCount() {
-        // nombre de données
         return drivingSchools.size();
     }
 

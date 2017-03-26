@@ -1,4 +1,4 @@
-package com.example.guillaume.naviguationdrawer.Fragment;
+package com.example.guillaume.naviguationdrawer.fragment;
 
 import android.content.ComponentName;
 import android.content.Intent;
@@ -29,7 +29,6 @@ import static android.content.Context.BIND_AUTO_CREATE;
  */
 
 public class HomeFragment extends android.support.v4.app.Fragment {
-    // TODO Afficher les resultats de la bdd
 
     private TextView textViewRemainingTime;
 

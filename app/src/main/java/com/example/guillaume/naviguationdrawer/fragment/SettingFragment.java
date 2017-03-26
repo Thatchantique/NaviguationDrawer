@@ -1,4 +1,4 @@
-package com.example.guillaume.naviguationdrawer.Fragment;
+package com.example.guillaume.naviguationdrawer.fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -81,7 +81,7 @@ public class SettingFragment extends android.support.v4.app.Fragment {
                     textViewErrors.setVisibility(View.INVISIBLE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("name", name);
-                    //TODO Faire correspondre la bonne valeur de name aux préférences
+
                     editor.putString("email", email);
                     if (avatarPath != null) {
                         editor.putString("avatar", getRealPathFromURI(avatarPath));

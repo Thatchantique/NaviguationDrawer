@@ -1,20 +1,22 @@
 package com.example.guillaume.naviguationdrawer;
 
-import android.graphics.drawable.Drawable;
+import java.io.Serializable;
 
 /**
  * Created by Guillaume on 12/02/2017.
  */
-
-public class DrivingSchool {
-
+public class DrivingSchool implements Serializable {
     private String name;
-    private int icon;
+    private int icon = -1;
     private String adresse;
 
     public DrivingSchool(String adresse, int icon, String name) {
         this.adresse = adresse;
         this.icon = icon;
+        this.name = name;
+    }
+    public DrivingSchool(String adresse, String name) {
+        this.adresse = adresse;
         this.name = name;
     }
 
