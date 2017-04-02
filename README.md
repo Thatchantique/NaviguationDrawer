@@ -20,26 +20,27 @@ Projet d'origine : Gestion d'une liste de course.
 - [x] Implémenter la liste
 - [x] Implémenter la sélection
 
-
 ### TP n°4 : Les Menus et les Fragments
-- [ ] Changement de la page d'acceuil
-- [ ] Adaptation du menu au projet
-- [ ] Les fragments
+- [x] Changement de la page d'acceuil
+- [x] Adaptation du menu au projet
+- [x] Les fragments
 
 ### TP n°5 : Persistance et Préférences
-- [ ] Persistance de la liste
-- [ ] Préférences utilisateur
+- [x] Persistance de la liste
+- [x] Préférences utilisateur
 
 ### TP n°6 : Accès à un serveur HTTP
-- [ ] Connexion au serveur - Serveur web
-- [ ] Récupérer la liste des produits - Serveur REST
-- [ ] Créer une commande - Serveur REST
-- [ ] Afficher une commande - Serveur REST
-- [ ] Ajouter un élément à la commande - Serveur REST
+> Création d'un fichier PHP pour mimer le serveur
+- [x] Connexion au serveur - Serveur web
+- [x] Récupérer la liste des produits - Serveur REST
+- [x] Créer une commande - Serveur REST
+- [x] Afficher une commande - Serveur REST
+- [x] Ajouter un élément à la commande - Serveur REST
 - [ ] Suppression d’une commande
 - [ ] Laisser le choix à l'utilisateur de l'URL et du port - Bonus
 
 ### TP n°8 : Les services & Les widgets
+> Utilisation du bind au service (en cours)
 - [x] Service démarré : le compte à rebours
 - [x] Récupérer le message final d'un service
 - [x] Envoyer le message final d'un service
