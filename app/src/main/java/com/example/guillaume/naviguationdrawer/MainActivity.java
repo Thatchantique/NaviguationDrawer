@@ -31,7 +31,7 @@ import android.widget.TextView;
 import com.example.guillaume.naviguationdrawer.fragment.DrivingFormFragment;
 import com.example.guillaume.naviguationdrawer.fragment.HomeFragment;
 import com.example.guillaume.naviguationdrawer.fragment.DrivingSchoolFragment;
-import com.example.guillaume.naviguationdrawer.fragment.ProductsFragment;
+import com.example.guillaume.naviguationdrawer.fragment.DriveFragment;
 import com.example.guillaume.naviguationdrawer.fragment.SettingFragment;
 import com.example.guillaume.naviguationdrawer.fragment.SimpleNetworkFragment;
 import com.example.guillaume.naviguationdrawer.model.Cars;
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity
                 currentFragment = new DrivingFormFragment();
                 break;
             case TAG_PRODUCTS:
-                currentFragment = new ProductsFragment();
+                currentFragment = new DriveFragment();
                 break;
         }
         return currentFragment;
