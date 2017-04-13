@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by Guillaume on 15/02/2017.
+ * Created by Gaujac on 15/02/2017.
  */
 
 public class DrivingSchoolDatabase extends SQLiteOpenHelper {

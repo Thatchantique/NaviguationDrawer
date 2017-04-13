@@ -14,7 +14,7 @@ import com.example.guillaume.naviguationdrawer.model.Product;
 import java.util.List;
 
 /**
- * Created by Guillaume on 05/04/17.
+ * Created by lud00 on 05/04/17.
  */
 
 public class ProductAdapter extends ArrayAdapter<Product> {
