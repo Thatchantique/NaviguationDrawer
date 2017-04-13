@@ -42,6 +42,7 @@ public class NetworkUtils {
         try {
             URL driveURL = new URL(url);
             urlConnection = (HttpURLConnection) driveURL.openConnection();
+            urlConnection.addRequestProperty("Accept", "application/json");
             urlConnection.connect();
 
             InputStream inputStream = urlConnection.getInputStream();
