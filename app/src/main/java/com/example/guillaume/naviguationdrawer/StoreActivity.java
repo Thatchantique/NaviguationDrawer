@@ -33,6 +33,15 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             @Override
             public void onClick(View view) {
                 // TODO: ajouter add product
+                // currentMethod = StoreLoader.Methods.ADD_PRODUCT_TO_ORDER;
+                // Bundle bundle = new Bundle();
+                // bundle.putSerializable("method", currentMethod);
+                // bundle.putString("arg", "0");
+                // if (NetworkUtils.isOnline(getApplicationContext())) {
+                //     getLoaderManager().restartLoader(1, bundle, storeActivity).forceLoad();
+                // } else {
+                //     Toast.makeText(storeActivity, "You're not connected, shame on you", Toast.LENGTH_SHORT).show();
+                // }
             }
         });
 

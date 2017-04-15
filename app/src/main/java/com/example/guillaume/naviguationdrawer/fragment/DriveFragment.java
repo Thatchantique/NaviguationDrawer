@@ -44,6 +44,8 @@ public class DriveFragment extends Fragment {
                  * Call StoreLoader avec ce qu'il faut (voir cours)
                  * Stocker ID, l'utiliser à la place des valeurs hardcoder (cf storeactivity)
                  */
+
+
             }
         });
 
