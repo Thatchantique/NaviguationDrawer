@@ -21,7 +21,7 @@ public class StoreLoader extends AsyncTaskLoader {
     private String port = "3333";
     private String url = baseURL + ":" + port + "/Magasin/Drive/";
 
-    private String arg; // TODO: à améliorer
+    private String arg;
     private Methods currentMethod;
 
     public StoreLoader(Context context, Methods currentMethod, String arg) {

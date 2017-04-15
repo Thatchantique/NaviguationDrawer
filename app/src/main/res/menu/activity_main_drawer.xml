@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single"> <!-- TODO: Move to strings-->
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:title="Home" />
+            android:title="@string/home_navbar" />
         <item
             android:id="@+id/nav_driving"
-            android:title="Driving" />
+            android:title="@string/driving_navbar" />
         <item
             android:id="@+id/nav_driving_form"
-            android:title="Driving Form" />
+            android:title="@string/driving_form_navbar" />
         <item
             android:id="@+id/nav_network"
-            android:title="Network"/>
+            android:title="@string/network_navbar"/>
         <item
             android:id="@+id/nav_settings"
-            android:title="Settings" />
+            android:title="@string/settings_navbar" />
         <item
             android:id="@+id/nav_products"
-            android:title="Products"
+            android:title="@string/products_navbar"
             />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/communicate_navbar">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="@string/share_navbar" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="@string/send_navbar" />
         </menu>
     </item>
 

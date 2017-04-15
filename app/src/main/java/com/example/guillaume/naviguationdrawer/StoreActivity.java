@@ -40,7 +40,6 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: STATIC IDs
                 currentMethod = StoreLoader.Methods.DELETE;
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("method", currentMethod);
@@ -54,7 +53,6 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
             }
         });
 
-        // TODO: STATIC IDs
         currentMethod = StoreLoader.Methods.SHOW_ORDER;
         Bundle bundle = new Bundle();
         bundle.putSerializable("method", currentMethod);
