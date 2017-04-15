@@ -30,13 +30,13 @@ Projet d'origine : Gestion d'une liste de course.
 - [x] Préférences utilisateur
 
 ### TP n°6 : Accès à un serveur HTTP
-> Création d'un fichier PHP pour mimer le serveur
+> Création d'un fichier PHP pour mimer le serveur pour le commit : 586615b (Serveur utilisé à partir du commit 504fd81)
 - [x] Connexion au serveur - Serveur web
 - [x] Récupérer la liste des produits - Serveur REST
-- [x] Créer une commande - Serveur REST
+- [ ] Créer une commande - Serveur REST
 - [x] Afficher une commande - Serveur REST
-- [x] Ajouter un élément à la commande - Serveur REST
-- [ ] Suppression d’une commande
+- [ ] Ajouter un élément à la commande - Serveur REST
+- [x] Suppression d’une commande
 - [ ] Laisser le choix à l'utilisateur de l'URL et du port - Bonus
 
 ### TP n°8 : Les services & Les widgets
