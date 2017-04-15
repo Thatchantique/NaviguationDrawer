@@ -2,6 +2,7 @@ package com.example.guillaume.naviguationdrawer.loader;
 
 import android.content.Context;
 import android.content.AsyncTaskLoader;
+import android.util.Log;
 
 import com.example.guillaume.naviguationdrawer.utils.NetworkUtils;
 
@@ -34,10 +35,10 @@ public class StoreLoader extends AsyncTaskLoader {
                 url = url + arg;
                 break;
             case DELETE:
-                url = baseURL + "delete&id=" + arg;
+                url = url + arg;
                 break;
             case ADD_PRODUCT_TO_ORDER:
-                url = baseURL + "add";
+                // url = baseURL + "add";
                 break;
         }
 
@@ -50,7 +51,7 @@ public class StoreLoader extends AsyncTaskLoader {
             case CREATE_ORDER:
                 return NetworkUtils.postData(url, arg);
             case DELETE:
-                return NetworkUtils.getData(url);
+                return NetworkUtils.postDataDelete(url, arg);
             case SHOW_ORDER:
                 return NetworkUtils.getData(url);
             case ADD_PRODUCT_TO_ORDER:

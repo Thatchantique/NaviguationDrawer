@@ -57,22 +57,46 @@ public class NetworkUtils {
         String result = "";
         URLConnection connection;
 
+        Log.e("NetworkUtils", url);
         try {
             connection = new URL(url).openConnection();
             HttpURLConnection httpcon = buildHttpURLConnection(connection);
 
-            byte[] outputBytes = encodedData.getBytes("UTF-8");
-            OutputStream os = httpcon.getOutputStream();
-            os.write(outputBytes);
-            os.close();
-
-            if (httpcon.getResponseCode() == 200 || httpcon.getResponseCode() == 204) {
-                result = readResponse(httpcon.getInputStream());
-            } else {
-                throw new Exception("An error occurred...");
-            }
+            result = getString(encodedData, httpcon);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static String postDataDelete(String url, String encodedData) {
+        String result = "";
+        URLConnection connection;
+
+        Log.e("NetworkUtils", url);
+        try {
+            connection = new URL(url).openConnection();
+            HttpURLConnection httpcon = buildHttpURLConnectionForDelete(connection);
+
+            result = getString(encodedData, httpcon);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private static String getString(String encodedData, HttpURLConnection httpcon) throws Exception {
+        String result;
+
+        byte[] outputBytes = encodedData.getBytes("UTF-8");
+        OutputStream os = httpcon.getOutputStream();
+        os.write(outputBytes);
+        os.close();
+
+        if (httpcon.getResponseCode() == 200 || httpcon.getResponseCode() == 204) {
+            result = readResponse(httpcon.getInputStream());
+        } else {
+            throw new Exception("An error occurred... " + httpcon.getResponseCode());
         }
         return result;
     }
@@ -80,13 +104,20 @@ public class NetworkUtils {
     private static HttpURLConnection buildHttpURLConnection(URLConnection connection) throws IOException {
         HttpURLConnection httpcon = (HttpURLConnection) (connection);
 
-        httpcon.setRequestMethod("POST");
         httpcon.setRequestProperty("Content-Type", "application/json");
         httpcon.setRequestProperty("Accept", "application/json");
+        httpcon.setRequestMethod("POST");
         httpcon.setDoOutput(true);
         httpcon.connect();
 
         return httpcon;
     }
 
+    private static HttpURLConnection buildHttpURLConnectionForDelete(URLConnection connection) throws IOException {
+        HttpURLConnection httpcon = (HttpURLConnection) (connection);
+        httpcon.setRequestMethod("DELETE");
+        httpcon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded" );
+        httpcon.connect();
+        return httpcon;
+    }
 }

@@ -2,25 +2,62 @@ package com.example.guillaume.naviguationdrawer;
 
 import android.app.LoaderManager;
 import android.content.Loader;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.guillaume.naviguationdrawer.loader.ProductLoader;
 import com.example.guillaume.naviguationdrawer.loader.StoreLoader;
+import com.example.guillaume.naviguationdrawer.model.Order;
 import com.example.guillaume.naviguationdrawer.utils.NetworkUtils;
+import com.google.gson.Gson;
 
 public class StoreActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Object> {
     private StoreLoader.Methods currentMethod;
+    private TextView textViewResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
 
+        textViewResult = (TextView) findViewById(R.id.text_view_result);
+
+        Button addButton = (Button) findViewById(R.id.addProduct);
+        Button deleteButton = (Button) findViewById(R.id.deleteProduct);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: ajouter add product
+            }
+        });
+
+        final StoreActivity storeActivity = this;
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: STATIC IDs
+                currentMethod = StoreLoader.Methods.DELETE;
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("method", currentMethod);
+                bundle.putString("arg", "0");
+
+                if (NetworkUtils.isOnline(getApplicationContext())) {
+                    getLoaderManager().restartLoader(1, bundle, storeActivity).forceLoad();
+                } else {
+                    Toast.makeText(storeActivity, "You're not connected, shame on you", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        // TODO: STATIC IDs
+        currentMethod = StoreLoader.Methods.SHOW_ORDER;
         Bundle bundle = new Bundle();
-        bundle.putSerializable("method", StoreLoader.Methods.SHOW_ORDER);
+        bundle.putSerializable("method", currentMethod);
         bundle.putString("arg", "0");
 
         if (NetworkUtils.isOnline(getApplicationContext())) {
@@ -44,12 +81,27 @@ public class StoreActivity extends AppCompatActivity implements LoaderManager.Lo
         String data = (String) object;
         if (data.length() > 0) {
             Log.e("StoreActivity", data);
-            // Récupérer la currentMethod
-            // Faire le switch dans le loadFinished
+
+            switch (currentMethod) {
+                case CREATE_ORDER:
+                    break;
+                case SHOW_ORDER:
+                    Order order = new Gson().fromJson(data, Order.class);
+                    textViewResult.setText(order.toString());
+                    break;
+                case DELETE:
+                    finish();
+                    break;
+                case ADD_PRODUCT_TO_ORDER:
+                    break;
+            }
+
             // Afficher la commande actuelle (TextView, ListView pour chaque élémaent dans la commande
 
             // TODO:
             // Création de la commande ?
+
+
         }
     }
 
